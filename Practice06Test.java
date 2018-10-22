@@ -15,7 +15,7 @@ public class Practice06Test {
 	
 	
 	public void clearData() {
-		while (!queue.empty()) {
+		while (!queue.isEmpty()) {
 			queue.dequeue();
 		}
 		while (!stack.empty()) {
@@ -26,19 +26,28 @@ public class Practice06Test {
 	
 	public boolean isPalindrome(String item) {
 		clearData();
-		for (int i = 0; i < item.length(); i++) {
-			stack.push(item.substring(i, i+1));
-			queue.enqueue(item.substring(i, i+1));
+		item.toLowerCase();
+		for (int i = 0; i < item.length(); i++){
+			if(item.substring(i,i+1).equals("!")){
+				continue;
+			}
+			else{
+				stack.push(item.substring(i, i+1));
+				queue.enqueue(item.substring(i, i+1));
+			}
 		}
 
-		while (! stack.empty() && ! queue.empty()) {
+		while (! stack.empty() && ! queue.isEmpty()) {
 			if (! stack.pop().equals(queue.dequeue())) {
 				return false;
+			}
+			else{
+				return true;
 			}
 		}
 		
 		// At this point, the stack AND the queue should be empty. But check in case...
-		if (!stack.empty() || ! queue.empty())
+		if (!stack.empty() || ! queue.isEmpty())
 			return false;
 		
 		return true;
@@ -52,7 +61,7 @@ public class Practice06Test {
 			// If the stack and queue are empty (default), that's a milestone.
 			if (stack.empty())
 				grade += 5;
-			if (queue.empty())
+			if (queue.isEmpty())
 				grade += 5;
 			System.out.println("[+" + grade + "%] Queue and Stack declared correctly.");
 	
@@ -61,7 +70,7 @@ public class Practice06Test {
 			String second = "second";
 			queue.enqueue(first);
 			queue.enqueue(second);
-			if (queue.dequeue() == first && queue.dequeue() == second && queue.empty()) {
+			if (queue.dequeue() == first && queue.dequeue() == second && queue.isEmpty()) {
 				System.out.println("[+10%] Queue functions appear correct.");
 				grade += 10;
 			} else {
@@ -84,13 +93,13 @@ public class Practice06Test {
 			}
 			boolean emptiedEarly = false;
 			for (int i = 0; i < size_of_test; i++) {
-				if ( queue.empty() || stack.empty()) {
+				if ( queue.isEmpty() || stack.empty()) {
 					emptiedEarly = true;
 				}
 				queue.dequeue();
 				stack.pop();
 			}
-			if (queue.empty() && stack.empty() && ! emptiedEarly) {
+			if (queue.isEmpty() && stack.empty() && ! emptiedEarly) {
 				System.out.println("[+10%] Stack and Queue appear to resize correctly.");
 				grade += 10;
 			} else {
@@ -101,7 +110,7 @@ public class Practice06Test {
 	
 			// Second tests: does it correctly find palindromes?
 			for (String expression : expressionList) {
-				if (isPalindrome(expression)) {
+				if (isPalindrome(expression)){
 					System.out.println("[+10%] \"" + expression + "\" is a palindrome (correct).");
 					grade += 10;
 				}
