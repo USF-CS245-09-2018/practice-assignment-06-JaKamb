@@ -27,10 +27,12 @@ public class Practice06Test {
 	public boolean isPalindrome(String item) {
 		clearData();
 		item.toLowerCase();
+		//this should take care of Anna
 		for (int i = 0; i < item.length(); i++){
-			if(item.substring(i,i+1).equals("!")){
+			if(item.substring(i,i+1).equals("!") || item.substring(i,i+1).equals(" ")){
 				continue;
 			}
+			//this should have taken care of the nut and tuna one
 			else{
 				stack.push(item.substring(i, i+1));
 				queue.enqueue(item.substring(i, i+1));
